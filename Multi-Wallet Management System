@@ -1,0 +1,17 @@
+from web3 import Web3
+
+class WalletManager:
+    def __init__(self, infura_url, addresses):
+        self.w3 = Web3(Web3.HTTPProvider(infura_url))
+        self.addresses = addresses
+
+    def get_balances(self):
+        for address in self.addresses:
+            balance = self.w3.eth.get_balance(address)
+            print(f"Address: {address}, Balance: {self.w3.fromWei(balance, 'ether')} ETH")
+
+if __name__ == "__main__":
+    infura_url = "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
+    addresses = ["0x...", "0x..."]  # Add your wallet addresses
+    manager = WalletManager(infura_url, addresses)
+    manager.get_balances()
